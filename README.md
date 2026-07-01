@@ -45,6 +45,8 @@ curl -X POST http://127.0.0.1:8000/crawl \
   -d '{"url":"https://builderwebsite.com"}'
 ```
 
+Tip: run the commands from the repository root so `uvicorn` can import `app.api` and the scraper writes outputs to the expected `SCRAPED_DATA/` directory.
+
 ## Output Layout
 
 ```text
