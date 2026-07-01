@@ -119,3 +119,12 @@ playwright install chromium
 ```
 
 Set `BHUMI_PLAYWRIGHT_HEADLESS=false` for visual debugging. If Playwright is unavailable in a minimal environment, the crawler falls back to the standard-library fetcher so tests and basic HTML sites still work.
+
+### Reducing 403 Blocks with Playwright
+
+For sites that block headless browsers, keep Playwright enabled and use the hardened Chromium context. The scraper now adds Chromium client hints, navigation `Sec-Fetch-*` headers, a realistic viewport/timezone/locale, HTTPS-error tolerance, and stealth JavaScript for common automation checks. If a target still blocks datacenter IPs, configure a residential or approved proxy:
+
+```bash
+export BHUMI_PLAYWRIGHT_PROXY="http://user:pass@host:port"
+export BHUMI_PLAYWRIGHT_SLOW_MO_MS="50"
+```

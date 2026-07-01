@@ -139,7 +139,14 @@ class RealEstateCrawler:
         headers = self._request_headers(url)
         if settings.use_playwright:
             try:
-                result = fetch_with_playwright(url, headers, settings.request_timeout_seconds, settings.playwright_headless)
+                result = fetch_with_playwright(
+                    url,
+                    headers,
+                    settings.request_timeout_seconds,
+                    settings.playwright_headless,
+                    settings.playwright_proxy,
+                    settings.playwright_slow_mo_ms,
+                )
                 return result.final_url, result.content_type, result.body
             except PlaywrightUnavailableError:
                 pass
@@ -157,6 +164,11 @@ class RealEstateCrawler:
             "Referer": settings.request_referer,
             "Upgrade-Insecure-Requests": "1",
             "DNT": "1",
+            "Connection": "keep-alive",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
         }
 
     def _pagination_candidates(self, url: str) -> list[str]:
