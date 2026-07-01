@@ -6,6 +6,7 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlunparse, urldefrag, urljoin, urlparse
+from urllib.error import URLError, HTTPError
 from urllib.request import Request, urlopen
 from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
@@ -54,8 +55,8 @@ class RealEstateCrawler:
             seen.add(url)
             try:
                 fetched_url, content_type, body = self._fetch(url)
-            except Exception as exc:
-                errors.append(self._crawl_error(url, exc))
+            except (HTTPError, URLError, TimeoutError) as exc:
+                errors.append({"url": url, "error": str(exc)})
                 continue
             if "text/html" not in content_type:
                 asset = self._store_download(download_dir if use_filesystem else None, url, url, body, "documents")
@@ -82,8 +83,8 @@ class RealEstateCrawler:
                 if ext in DOWNLOAD_EXTENSIONS:
                     try:
                         _, _, doc_body = self._fetch(href)
-                    except Exception as exc:
-                        errors.append(self._crawl_error(href, exc))
+                    except (HTTPError, URLError, TimeoutError) as exc:
+                        errors.append({"url": href, "error": str(exc)})
                         continue
                     category = classify_document(href, link.get_text(" ", strip=True))
                     target_dir = (download_dir / category) if use_filesystem else None
@@ -121,9 +122,6 @@ class RealEstateCrawler:
             write_json(root / "google_sheets_status.json", sheets_status)
             self._snapshot_latest(root, crawl_id)
         return result
-
-    def _crawl_error(self, url: str, exc: Exception) -> dict[str, str]:
-        return {"url": url, "error": str(exc), "error_type": type(exc).__name__}
 
     def _fetch(self, url: str) -> tuple[str, str, bytes]:
         request = Request(url, headers=self._request_headers(url))
