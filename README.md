@@ -109,6 +109,7 @@ export BHUMI_GOOGLE_SERVICE_ACCOUNT_JSON='/path/to/service-account.json'
 
 Use `BHUMI_STORAGE_BACKEND=both` when you want both Google Sheets sync and full filesystem archives/download folders.
 
+
 ## Playwright Rendering
 
 The crawler uses Playwright by default (`BHUMI_USE_PLAYWRIGHT=true`) so JavaScript-heavy sites can render before extraction. Install the browser runtime before production crawls:
@@ -128,3 +129,4 @@ For sites that block headless browsers, keep Playwright enabled and use the hard
 export BHUMI_PLAYWRIGHT_PROXY="http://user:pass@host:port"
 export BHUMI_PLAYWRIGHT_SLOW_MO_MS="50"
 ```
+ 
