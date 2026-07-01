@@ -38,12 +38,22 @@ class _FallbackParser(HTMLParser):
         self.title: _Node | None = None
         self._current: str | None = None
         self._buffer: list[str] = []
+
+        self._active_link: _Node | None = None
+        self._active_link_text: list[str] = []
+
         self.text_parts: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attr_map = {k: v or "" for k, v in attrs}
         if tag == "a" and attr_map.get("href"):
+
+            self._active_link = _Node(tag, attr_map)
+            self._active_link_text = []
+            self.links.append(self._active_link)
+
             self.links.append(_Node(tag, attr_map))
+
         elif tag == "img":
             self.images.append(_Node(tag, attr_map))
         elif tag == "meta":
@@ -55,10 +65,21 @@ class _FallbackParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if data.strip():
             self.text_parts.append(data)
+        if self._active_link is not None:
+            self._active_link_text.append(data)
+
         if self._current:
             self._buffer.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._active_link is not None:
+            self._active_link._text = " ".join(self._active_link_text).strip()
+            self._active_link.string = self._active_link._text
+            self._active_link = None
+            self._active_link_text = []
+        if tag in {"p", "div", "section", "article", "li", "tr", "h1", "h2", "h3"}:
+            self.text_parts.append("\n")
+
         if self._current == tag:
             node = _Node(tag, {}, " ".join(self._buffer).strip())
             if tag == "title":
@@ -79,6 +100,11 @@ class FallbackSoup:
         return []
 
     def get_text(self, separator: str = " ", strip: bool = False) -> str:
+        joiner = separator if separator != " " else ""
+        text = joiner.join(self.parser.text_parts)
+        text = re.sub(r"[ \t\r\f\v]+", " ", text)
+        text = re.sub(r"\n+", "\n", text)
+
         text = separator.join(self.parser.text_parts)
         text = re.sub(r"\s+", " ", text)
         return text.strip() if strip else text

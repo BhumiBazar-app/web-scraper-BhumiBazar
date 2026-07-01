@@ -10,8 +10,15 @@ from urllib.error import URLError, HTTPError
 from urllib.request import Request, urlopen
 from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
+from app.scraper.browser import PlaywrightUnavailableError, fetch_with_playwright
 from app.scraper.classifier import DOWNLOAD_EXTENSIONS, classify_document, looks_like_project
 from app.scraper.html import parse_html
+from app.scraper.listing_extractor import extract_listing_projects
+from app.scraper.sitemap_extractor import extract_sitemap_projects
+
+from app.scraper.classifier import DOWNLOAD_EXTENSIONS, classify_document, looks_like_project
+from app.scraper.html import parse_html
+
 from app.scraper.extractor import extract_builder_name, extract_images, extract_project
 from app.scraper.google_sheets import sync_crawl_to_google_sheets
 from app.scraper.storage import persist_result, write_json
@@ -47,6 +54,11 @@ class RealEstateCrawler:
         pagination_urls: list[str] = []
         page_sources: dict[str, str] = {start_url: "seed"}
         queue: deque[str] = deque([start_url])
+
+        for entrypoint in self._site_entrypoints(start_url):
+            page_sources.setdefault(entrypoint, "sitemap")
+            queue.append(entrypoint)
+
         while queue and len(seen) < self.max_pages:
             url = queue.popleft()
             page_source = page_sources.get(url, "internal")
@@ -101,7 +113,17 @@ class RealEstateCrawler:
                     pagination_urls.append(href)
                     page_sources[href] = "pagination"
                     queue.append(href)
+
+            sitemap_projects = extract_sitemap_projects(fetched_url, soup, builder_name)
+            listing_projects = extract_listing_projects(fetched_url, soup, builder_name)
+            if sitemap_projects:
+                projects.extend(sitemap_projects)
+            elif listing_projects:
+                projects.extend(listing_projects)
+            elif looks_like_project(fetched_url, soup):
+
             if looks_like_project(fetched_url, soup):
+
                 project = extract_project(fetched_url, soup, builder_name)
                 projects.append(project)
         if use_filesystem:
@@ -124,7 +146,25 @@ class RealEstateCrawler:
         return result
 
     def _fetch(self, url: str) -> tuple[str, str, bytes]:
+
+        headers = self._request_headers(url)
+        if settings.use_playwright:
+            try:
+                result = fetch_with_playwright(
+                    url,
+                    headers,
+                    settings.request_timeout_seconds,
+                    settings.playwright_headless,
+                    settings.playwright_proxy,
+                    settings.playwright_slow_mo_ms,
+                )
+                return result.final_url, result.content_type, result.body
+            except PlaywrightUnavailableError:
+                pass
+        request = Request(url, headers=headers)
+
         request = Request(url, headers=self._request_headers(url))
+
         with urlopen(request, timeout=settings.request_timeout_seconds) as response:
             return response.geturl(), response.headers.get("content-type", ""), response.read()
 
@@ -138,6 +178,13 @@ class RealEstateCrawler:
             "Referer": settings.request_referer,
             "Upgrade-Insecure-Requests": "1",
             "DNT": "1",
+
+            "Connection": "keep-alive",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+
         }
 
     def _pagination_candidates(self, url: str) -> list[str]:
@@ -189,6 +236,13 @@ class RealEstateCrawler:
 
     def _normalize_start(self, url: str) -> str:
         return url if url.startswith(("http://", "https://")) else f"https://{url}"
+
+
+    def _site_entrypoints(self, start_url: str) -> list[str]:
+        parsed = urlparse(start_url)
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        return [urljoin(base, "/site-map/")]
+
 
     def _is_internal(self, url: str, domain: str) -> bool:
         return urlparse(url).netloc.replace("www.", "") == domain.replace("www.", "")
