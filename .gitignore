@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+SCRAPED_DATA/
+
+# Generated scrape outputs
+test_data_noida/
+luxuryresidences_scrape/
