@@ -4,3 +4,9 @@ __pycache__/
 .venv/
 .env
 SCRAPED_DATA/
+
+# Generated scrape outputs
+test_data_noida/
+luxuryresidences_scrape/
+
+
