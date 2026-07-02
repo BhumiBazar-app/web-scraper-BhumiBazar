@@ -170,3 +170,22 @@ def test_request_headers_include_browser_navigation_hints():
     assert headers["Sec-Fetch-Mode"] == "navigate"
     assert headers["Sec-Fetch-Dest"] == "document"
     assert headers["sec-ch-ua-platform"] == '"Windows"'
+
+
+
+def test_blocked_crawl_status_and_latest_payload_are_explicit(tmp_path: Path, monkeypatch):
+    crawler = RealEstateCrawler(data_root=tmp_path, max_pages=1)
+
+    def blocked_fetch(url: str):
+        raise OSError("Tunnel connection failed: 403 Forbidden")
+
+    monkeypatch.setattr(crawler, "_fetch", blocked_fetch)
+
+    result = crawler.crawl("https://blocked-builder.com")
+    payload = result.latest_payload()
+
+    assert result.status == "blocked"
+    assert payload["status"] == "blocked"
+    assert payload["blocked"] is True
+    assert payload["total_errors"] == 1
+    assert payload["error_summary"][0]["error_type"] == "FetchAccessBlockedError"

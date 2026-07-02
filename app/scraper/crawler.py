@@ -4,16 +4,19 @@ import shutil
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
+
 from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
 from app.scraper.classifier import classify_document, looks_like_project
-from app.scraper.html import parse_html
-
-from app.scraper.extractor import extract_builder_name, extract_images, extract_project
-from app.scraper.google_sheets import sync_crawl_to_google_sheets
 from app.scraper.discovery import UrlDiscovery
-from app.scraper.fetcher import PageFetcher
+from app.scraper.extractor import extract_builder_name, extract_images, extract_project
+from app.scraper.fetcher import FetchAccessBlockedError
+from app.scraper.scrapy_playwright_fetcher import ScrapyPlaywrightFetcher
+from app.scraper.google_sheets import sync_crawl_to_google_sheets
+from app.scraper.html import parse_html
+from app.scraper.listing_extractor import extract_listing_projects
+from app.scraper.sitemap_extractor import extract_sitemap_projects
 from app.scraper.storage import persist_result, write_json
 from app.scraper.utils import domain_slug, sha256_bytes, slugify, unique_path
 
@@ -22,7 +25,8 @@ class RealEstateCrawler:
     def __init__(self, data_root: Path | None = None, max_pages: int | None = None) -> None:
         self.data_root = data_root or settings.data_root
         self.max_pages = max_pages or settings.max_pages_per_crawl
-        self.fetcher = PageFetcher()
+        self.fetcher = ScrapyPlaywrightFetcher()
+        self._last_fetch_log: dict[str, object] = {}
 
     def crawl(self, start_url: str) -> CrawlResult:
         started = datetime.now(timezone.utc)
@@ -38,14 +42,18 @@ class RealEstateCrawler:
         if use_filesystem:
             page_dir.mkdir(parents=True, exist_ok=True)
             download_dir.mkdir(parents=True, exist_ok=True)
+
         pages: list[str] = []
         errors: list[dict[str, object]] = []
         downloads: list[DownloadedAsset] = []
         projects = []
         all_images = []
-        builder_name = domain_slug(start_url).replace("_", " ").title()
-        discovery = UrlDiscovery(start_url)
         fetch_logs: list[dict[str, object]] = []
+        builder_name = website_id.replace("_", " ").title()
+        discovery = UrlDiscovery(start_url)
+        for entrypoint in self._site_entrypoints(start_url):
+            discovery.add_page_link(entrypoint, "sitemap")
+
         while len(discovery.seen) < self.max_pages:
             url = discovery.next_url()
             if url is None:
@@ -53,14 +61,18 @@ class RealEstateCrawler:
             page_source = discovery.page_sources.get(url, "internal")
             try:
                 fetched_url, content_type, body = self._fetch(url)
+                if self._last_fetch_log:
+                    fetch_logs.append(self._last_fetch_log)
             except Exception as exc:
+                if self._last_fetch_log:
+                    fetch_logs.append(self._last_fetch_log)
                 errors.append(self._crawl_error(url, exc))
                 continue
-            fetch_logs.append(getattr(self, "_last_fetch_log", {}))
+
             if "text/html" not in content_type:
-                asset = self._store_download(download_dir if use_filesystem else None, url, url, body, "documents")
-                downloads.append(asset)
+                downloads.append(self._store_download(download_dir if use_filesystem else None, url, url, body, "documents"))
                 continue
+
             html = body.decode("utf-8", errors="replace")
             pages.append(fetched_url)
             soup = parse_html(html)
@@ -69,17 +81,19 @@ class RealEstateCrawler:
             if use_filesystem:
                 page_bucket = page_dir / ("paginated" if page_source == "pagination" else "standard")
                 page_bucket.mkdir(parents=True, exist_ok=True)
-                page_path = page_bucket / f"{slugify(urlparse(fetched_url).path or 'home')}.html"
-                page_path = unique_path(page_path)
+                page_path = unique_path(page_bucket / f"{slugify(urlparse(fetched_url).path or 'home')}.html")
                 page_path.write_text(html, encoding="utf-8")
-            images = extract_images(fetched_url, soup)
-            all_images.extend(asdict(image) for image in images)
+
+            all_images.extend(asdict(image) for image in extract_images(fetched_url, soup))
             page_links, download_links = discovery.links_from_soup(soup, fetched_url)
             for href, link in download_links:
                 try:
                     _, _, doc_body = self._fetch(href)
-                    fetch_logs.append(getattr(self, "_last_fetch_log", {}))
+                    if self._last_fetch_log:
+                        fetch_logs.append(self._last_fetch_log)
                 except Exception as exc:
+                    if self._last_fetch_log:
+                        fetch_logs.append(self._last_fetch_log)
                     errors.append(self._crawl_error(href, exc))
                     continue
                 category = classify_document(href, link.get_text(" ", strip=True))
@@ -92,21 +106,29 @@ class RealEstateCrawler:
                     discovery.add_page_link(href)
             for href in discovery.pagination_candidates(fetched_url):
                 discovery.add_pagination_link(href)
-            if looks_like_project(fetched_url, soup):
 
-                project = extract_project(fetched_url, soup, builder_name)
-                projects.append(project)
+            sitemap_projects = extract_sitemap_projects(fetched_url, soup, builder_name)
+            listing_projects = extract_listing_projects(fetched_url, soup, builder_name)
+            if sitemap_projects:
+                projects.extend(sitemap_projects)
+            elif listing_projects:
+                projects.extend(listing_projects)
+            elif looks_like_project(fetched_url, soup):
+                projects.append(extract_project(fetched_url, soup, builder_name))
+
         if use_filesystem:
             write_json(root / "images.json", all_images)
             if discovery.pagination_urls:
-                write_json(root / "pagination.json", {"discovered": sorted(set(discovery.pagination_urls)), "total": len(set(discovery.pagination_urls))})
+                unique_pagination = sorted(set(discovery.pagination_urls))
+                write_json(root / "pagination.json", {"discovered": unique_pagination, "total": len(unique_pagination)})
             if fetch_logs:
                 write_json(root / "logs" / f"{crawl_id}_fetches.json", fetch_logs)
             if errors:
                 write_json(root / "logs" / f"{crawl_id}_errors.json", errors)
+
         finished = datetime.now(timezone.utc)
-        status = "completed" if pages else "failed"
-        result = CrawlResult(website_id, builder_name, domain, crawl_id, started.isoformat(), finished.isoformat(), pages, downloads, projects, root, status=status)
+        status = self._crawl_status(pages, errors)
+        result = CrawlResult(website_id, builder_name, domain, crawl_id, started.isoformat(), finished.isoformat(), pages, downloads, projects, root, status=status, errors=errors)
         if use_filesystem:
             persist_result(result)
         sheets_status = {"status": "skipped", "reason": "storage backend is filesystem"}
@@ -116,6 +138,13 @@ class RealEstateCrawler:
             write_json(root / "google_sheets_status.json", sheets_status)
             self._snapshot_latest(root, crawl_id)
         return result
+
+    def _crawl_status(self, pages: list[str], errors: list[dict[str, object]]) -> str:
+        if pages:
+            return "completed"
+        if errors and all(error.get("blocked") == "true" for error in errors):
+            return "blocked"
+        return "failed"
 
     def _crawl_error(self, url: str, exc: Exception) -> dict[str, object]:
         if self.fetcher._is_access_blocked_error(exc):
@@ -139,6 +168,7 @@ class RealEstateCrawler:
             "rendered": result.rendered,
             "rendering_error": result.rendering_error,
             "failure_reason": result.failure_reason,
+            "fetch_engine": "scrapy_playwright",
         }
         if result.failure_reason in {"captcha", "access_blocked", "rate_limited", "rendering_error"}:
             self._last_fetch_log["manual_review"] = True
@@ -185,12 +215,10 @@ class RealEstateCrawler:
     def _normalize_start(self, url: str) -> str:
         return url if url.startswith(("http://", "https://")) else f"https://{url}"
 
-
     def _site_entrypoints(self, start_url: str) -> list[str]:
         parsed = urlparse(start_url)
         base = f"{parsed.scheme}://{parsed.netloc}"
         return [urljoin(base, "/site-map/")]
-
 
     def _is_internal(self, url: str, domain: str) -> bool:
         return urlparse(url).netloc.replace("www.", "") == domain.replace("www.", "")

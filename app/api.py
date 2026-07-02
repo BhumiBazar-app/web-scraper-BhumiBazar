@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Response
 from pydantic import BaseModel, HttpUrl
 from app.scraper.crawler import RealEstateCrawler
 
@@ -20,6 +20,9 @@ class CrawlResponse(BaseModel):
     total_pages: int
     total_projects: int
     total_downloads: int
+    total_errors: int
+    blocked: bool
+    error_summary: list[dict[str, object]]
     output_path: str
 
 
@@ -29,12 +32,16 @@ def health() -> dict[str, str]:
 
 
 @app.post("/crawl", response_model=CrawlResponse)
-def crawl_site(payload: CrawlRequest) -> CrawlResponse:
+def crawl_site(payload: CrawlRequest, response: Response) -> CrawlResponse:
     try:
         result = RealEstateCrawler().crawl(str(payload.url))
     except Exception as exc:  # FastAPI boundary: convert unexpected crawler errors to API errors.
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     latest = result.latest_payload()
+    if latest.get("status") == "blocked":
+        response.status_code = 502
+    elif latest.get("status") == "failed":
+        response.status_code = 424
     return CrawlResponse(**latest, output_path=str(result.output_path))
 
 

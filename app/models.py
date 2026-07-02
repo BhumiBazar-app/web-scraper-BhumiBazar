@@ -76,6 +76,7 @@ class CrawlResult:
     projects: list[ProjectRecord]
     output_path: Path
     status: str = "completed"
+    errors: list[dict[str, object]] = field(default_factory=list)
 
     def latest_payload(self) -> dict[str, Any]:
         return {
@@ -89,4 +90,7 @@ class CrawlResult:
             "total_pages": len(self.pages),
             "total_downloads": len(self.downloads),
             "total_projects": len(self.projects),
+            "total_errors": len(self.errors),
+            "blocked": any(error.get("blocked") == "true" for error in self.errors),
+            "error_summary": self.errors[:3],
         }
