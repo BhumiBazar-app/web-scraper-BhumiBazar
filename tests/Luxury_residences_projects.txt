@@ -1,0 +1,892 @@
+Luxury Residences Projects
+Source listing URL: https://www.luxuryresidences.in/projects
+Generated: 2026-07-02
+
+Crawler note
+- Direct local crawling of the /projects URL in this execution environment returned a sanitized blocked-access result before page retrieval.
+- Because the listing page content is rendered/limited in this environment, the records below are compiled from the public LuxuryResidences.in project pages discoverable from the projects listing/search-visible index during this run.
+- Verify price, size, RERA, possession, geocodes, maps links, and amenity lists against official developer/RERA records before business use.
+
+Project 1: Godrej Alira
+URL: https://www.luxuryresidences.in/godrej-alira-in-sector-39-gurgaon/
+General
+- Project Name: Godrej Alira
+- Builder Name: Godrej Properties
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 39
+- Address: Sector 39, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Premium low-density residential development with one 33-storey tower and about 134 residences on approximately 2 acres.
+- Status: Under construction / new launch
+- Launch Date: Not found in retrieved source content
+- Possession Date: March 2032
+Legal
+- RERA Number: GGM/959/691/2025/62
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK
+- Sizes: 3 BHK - 2500 Sq. Ft.*; 4 BHK - 3200 Sq. Ft.*
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2500 Sq. Ft.*; 3200 Sq. Ft.*
+Pricing
+- Starting Price: Rs. 6 Cr onwards*
+- Price Range: Rs. 6 Cr onwards*
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Clubhouse; Infinity edge pool; Pool deck; Loungers; Fitness studio; Multipurpose hall; Indoor games; Reading corner; Meditation lawn; High-speed lifts; CCTV coverage; Open spaces
+
+Project 2: Sobha Vista Residences
+URL: https://www.luxuryresidences.in/sobha-vista-residences-sector-108-gurgaon/
+General
+- Project Name: Sobha Vista Residences
+- Builder Name: Sobha
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 108
+- Address: Sector 108, Dwarka Expressway, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Premium residential project on Dwarka Expressway with 6 towers, G+24 floors, and about 396 units over 8.5 acres.
+- Status: Under construction
+- Launch Date: Not found in retrieved source content
+- Possession Date: Q4 / December 2028
+Legal
+- RERA Number: RC/REP/HARERA/GGM/2022
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK
+- Sizes: 2443 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2443 Sq. Ft.* onwards
+Pricing
+- Starting Price: 4.50 Cr* onwards
+- Price Range: 4.50 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 3: Hero Homes Palatial
+URL: https://www.luxuryresidences.in/hero-homes-palatial-at-sector-104-gurgaon/
+General
+- Project Name: Hero Homes Palatial
+- Builder Name: Hero Homes
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 104
+- Address: Sector 104, Gurgaon, Dwarka Expressway corridor
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: High-rise residential project near Dwarka Expressway with 5 towers, 688 residences, and up to 40+ floors over 7.13 acres.
+- Status: Under construction / newly launched sale live
+- Launch Date: Not found in retrieved source content
+- Possession Date: December 2030 / phase-wise from 2028 noted in highlights
+Legal
+- RERA Number: RC/REP/HARERA/GGM/2018/24
+- RERA Link: Not found in retrieved source content
+- Phase Information: Phase-wise possession from 2028 noted in source details
+Configuration
+- Unit Types: 3 BHK; 4 BHK
+- Sizes: 2800 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2800 Sq. Ft.* onwards
+Pricing
+- Starting Price: 4.55 Cr* onwards
+- Price Range: 4.55 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 4: Suncity Monarch
+URL: https://www.luxuryresidences.in/suncity-monarch-at-sector-78-gurgaon/
+General
+- Project Name: Suncity Monarch
+- Builder Name: Suncity
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 78
+- Address: Sector 78, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Premium high-rise condominium project with 900 apartments, G+45 towers, and a large clubhouse/sports/wellness amenity ecosystem.
+- Status: Premium high-rise condominium project
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK
+- Sizes: 2350 Sq. Ft. onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2350 Sq. Ft. onwards
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: 100,000 sq. ft. luxury lifestyle clubhouse; Sports amenities; Wellness amenities
+
+Project 5: Central Park Belanova
+URL: https://www.luxuryresidences.in/central-park-belanova-at-sector-48-gurgaon/
+General
+- Project Name: Central Park Belanova
+- Builder Name: Central Park
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 48
+- Address: Sector 48, Gurgaon / Sohna Road
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury tower at Sector 48 with a single G+34 tower, 124 residences, private lift lobbies, wraparound balconies, and a Japanese-inspired Sakura Club.
+- Status: Newly launched / sale live
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: RC/REP/HARERA/GGM/379/111/2019/73
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK; 5 BHK
+- Sizes: 4328 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 4328 Sq. Ft.* onwards
+Pricing
+- Starting Price: On request
+- Price Range: On request
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Private lift lobbies; Wraparound balconies; 170+ amenities; Sakura Club
+
+Project 6: Smart World The Edition
+URL: https://www.luxuryresidences.in/smart-world-the-edition-sector-66-gurgaon/
+General
+- Project Name: Smart World The Edition
+- Builder Name: Smart World
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 66
+- Address: Sector 66, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury apartment project over 10 acres with 6 towers, G+42 floors, and about 800 units.
+- Status: Under construction
+- Launch Date: 01 November 2023
+- Possession Date: 01 February 2031
+Legal
+- RERA Number: GGM/756/488/2023/100
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3.5 BHK; 4.5 BHK
+- Sizes: 2945 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2945 Sq. Ft.* onwards
+Pricing
+- Starting Price: 6.66 Cr* onwards
+- Price Range: 6.66 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 7: Trevoc Royal Residences
+URL: https://www.luxuryresidences.in/trevoc-royal-residences-sector-56-gurgaon/
+General
+- Project Name: Trevoc Royal Residences
+- Builder Name: Trevoc
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 56
+- Address: Sector 56, Golf Course Road, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury residential project on Golf Course Road spread over about 2.10 acres.
+- Status: Under construction
+- Launch Date: Not found in retrieved source content
+- Possession Date: February 2030 onwards
+Legal
+- RERA Number: HARERA/GGM/863/595/2024/90
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3.5 BHK; 4.5 BHK
+- Sizes: 2642 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2642 Sq. Ft.* onwards
+Pricing
+- Starting Price: 6 Cr onwards
+- Price Range: 6 Cr onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 8: Silverglades Legacy
+URL: https://www.luxuryresidences.in/silverglades-legacy-sector-63a-gurgaon/
+General
+- Project Name: Silverglades Legacy
+- Builder Name: Silverglades
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 63A
+- Address: Sector 63A, Golf Course Extension Road, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury residential development with 3 & 4 BHK apartments and 5 BHK penthouses on Golf Course Extension Road.
+- Status: New launch / under construction
+- Launch Date: Not found in retrieved source content
+- Possession Date: May 2031 onwards
+Legal
+- RERA Number: GGM/861/593/2024/88 dated 16.08.2024
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK; 5 BHK penthouses
+- Sizes: 2850 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2850 Sq. Ft.* onwards
+Pricing
+- Starting Price: 7 Cr* onwards
+- Price Range: 7 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 9: Godrej Sora
+URL: https://www.luxuryresidences.in/godrej-sora-in-sector-53-gurgaon/
+General
+- Project Name: Godrej Sora
+- Builder Name: Godrej Properties
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 53
+- Address: Sector 53, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Godrej residential project with sizes and floor-plan section noted in public project snippet.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK
+- Sizes: 2771 Sq. Ft.
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2771 Sq. Ft.
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 10: Krisumi Waterfall Residences
+URL: https://www.luxuryresidences.in/krisumi-waterfall-residences-at-sector-36A-gurgaon/
+General
+- Project Name: Krisumi Waterfall Residences
+- Builder Name: Krisumi
+- City: Gurgaon
+- State: Haryana
+- Country: India
+- Sector: Sector 36A
+- Address: Sector 36A, Gurgaon
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Residential project in Sector 36A with bookings/sale active according to page FAQ.
+- Status: Bookings/sale active according to page FAQ
+- Launch Date: Not found in retrieved source content
+- Possession Date: June 2028
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: 1740 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 1740 Sq. Ft.* onwards
+Pricing
+- Starting Price: 3.10 Cr* onwards
+- Price Range: 3.10 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 11: Sobha Neopolis
+URL: https://www.luxuryresidences.in/sobha-neopolis-panathur-bangalore/
+General
+- Project Name: Sobha Neopolis
+- Builder Name: Sobha
+- City: Bengaluru
+- State: Karnataka
+- Country: India
+- Sector: Panathur
+- Address: Panathur Main Road, Off Marathahalli-ORR, Bengaluru
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: 26-acre project with 19 towers and 2B+G+18 floors noted on source page.
+- Status: Under construction
+- Launch Date: Not found in retrieved source content
+- Possession Date: December 2031 onwards
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK
+- Sizes: 1613 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 1613 Sq. Ft.* onwards
+Pricing
+- Starting Price: 2.35 Cr onwards
+- Price Range: 2.35 Cr onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 12: Sobha Royal Crest
+URL: https://www.luxuryresidences.in/sobha-royal-crest-banashankari-bangalore/
+General
+- Project Name: Sobha Royal Crest
+- Builder Name: Sobha
+- City: Bengaluru
+- State: Karnataka
+- Country: India
+- Sector: Banashankari
+- Address: Banashankari, South Bangalore
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Residential development spread over 6.3 acres with one tower, 2B+G+28 floors, and about 329 units.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: 1853 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 1853 Sq. Ft.* onwards
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 13: Century Regalia / Century Built Rare
+URL: https://www.luxuryresidences.in/century-built-rare-indiranagar-bengaluru/
+General
+- Project Name: Century Regalia / Century Built Rare
+- Builder Name: Century
+- City: Bengaluru
+- State: Karnataka
+- Country: India
+- Sector: Indiranagar
+- Address: Indiranagar, Bengaluru
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Project page includes sizes & floor plan section and downloadable floor plan.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK
+- Sizes: 2375 Sq. Ft.
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 2375 Sq. Ft.
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 14: Rustomjee Crescent
+URL: https://www.luxuryresidences.in/rustomjee-crescent-pali-hill-bandra-mumbai/
+General
+- Project Name: Rustomjee Crescent
+- Builder Name: Rustomjee
+- City: Mumbai
+- State: Maharashtra
+- Country: India
+- Sector: Pali Hill / Bandra West
+- Address: Pali Hill, Bandra West, Mumbai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury apartments in Pali Hill with rooftop amenities and Bandra location advantages.
+- Status: Construction in progress
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK; 5 BHK
+- Sizes: 3 BHK 1342 - 1651 Sq. Ft.; 4 BHK 1758 - 1982 Sq. Ft.; 5 BHK 3296 Sq. Ft.
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 3 BHK 1342 - 1651 Sq. Ft.; 4 BHK 1758 - 1982 Sq. Ft.; 5 BHK 3296 Sq. Ft.
+Pricing
+- Starting Price: 14.40 Cr all-inclusive for 3 BHK
+- Price Range: 14.40 Cr all-inclusive for 3 BHK
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 15: Rustomjee Stella
+URL: https://www.luxuryresidences.in/rustomjee-stella-bandra-east-mumbai/
+General
+- Project Name: Rustomjee Stella
+- Builder Name: Rustomjee
+- City: Mumbai
+- State: Maharashtra
+- Country: India
+- Sector: Bandra East
+- Address: Bandra East, Mumbai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Luxury 3 BHK apartment project with sizes and floor-plan download section.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK
+- Sizes: 942 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 942 Sq. Ft.* onwards
+Pricing
+- Starting Price: 4.05 Cr* onwards
+- Price Range: 4.05 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 16: Raheja The Riviere
+URL: https://www.luxuryresidences.in/raheja-the-riviere-in-worli-mumbai/
+General
+- Project Name: Raheja The Riviere
+- Builder Name: Raheja
+- City: Mumbai
+- State: Maharashtra
+- Country: India
+- Sector: Worli
+- Address: Worli, South Mumbai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Skyplex residences across two premium towers rising about 50 to 57 floors.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: December 2029
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 3 BHK; 4 BHK; 5 BHK
+- Sizes: Not found in retrieved source content
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Not found in retrieved source content
+Pricing
+- Starting Price: 11.49 Cr onwards
+- Price Range: 11.49 Cr onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 17: The Ark Voyage
+URL: https://www.luxuryresidences.in/the-ark-voyage-pune-maharashtra/
+General
+- Project Name: The Ark Voyage
+- Builder Name: Not found in retrieved source content
+- City: Pune
+- State: Maharashtra
+- Country: India
+- Sector: NIBM Road
+- Address: NIBM Road, Pune
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Residential project over 12 acres with 6 towers, G+17/26 floors, and about 420 units.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: September 2027
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 4 BHK; 5 BHK
+- Sizes: 4 BHK 2300 - 2800 Sq. Ft.; 5 BHK 3300 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 4 BHK 2300 - 2800 Sq. Ft.; 5 BHK 3300 Sq. Ft.* onwards
+Pricing
+- Starting Price: 3.5 Cr* onwards
+- Price Range: 3.5 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 18: Azizi Riviera
+URL: https://www.luxuryresidences.in/azizi-riviera-at-meydan-city-dubai/
+General
+- Project Name: Azizi Riviera
+- Builder Name: Azizi
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: Meydan / MBR City
+- Address: Meydan, MBR City, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Large apartment community in Meydan / MBR City.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: End of December 2025
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Studio; 1 BR
+- Sizes: Studio 300 Sq. Ft.* onwards; 1 BR 516 Sq. Ft.
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Studio 300 Sq. Ft.* onwards; 1 BR 516 Sq. Ft.
+Pricing
+- Starting Price: 2.7 Cr* onwards
+- Price Range: 2.7 Cr* onwards
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 19: The Mirage at Sobha Central
+URL: https://www.luxuryresidences.in/the-mirage-at-sobha-central-dubai/
+General
+- Project Name: The Mirage at Sobha Central
+- Builder Name: Sobha
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: Sheikh Zayed Road
+- Address: Sheikh Zayed Road, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Sobha Central apartment project with about 1000 units according to FAQ.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: End of December 2030
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: 1 BR; 2 BR
+- Sizes: 648 Sq. Ft.* onwards
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 648 Sq. Ft.* onwards
+Pricing
+- Starting Price: 4.40 Cr / AED-linked price section
+- Price Range: 4.40 Cr / AED-linked price section
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 20: Binghatti Skyflame
+URL: https://www.luxuryresidences.in/binghatti-skyflame-at-majan-dubai/
+General
+- Project Name: Binghatti Skyflame
+- Builder Name: Binghatti
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: Majan
+- Address: Majan, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Urban apartment project with flexible entry positioning and floor-plan download section.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Studio; 1 BHK; 2 BHK
+- Sizes: Studio 400 Sq. Ft.
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Studio 400 Sq. Ft.
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 21: Laguna Residences
+URL: https://www.luxuryresidences.in/laguna-residences-at-dubai/
+General
+- Project Name: Laguna Residences
+- Builder Name: Not found in retrieved source content
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: City of Arabia
+- Address: City of Arabia, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Large residential project of about 30.9 acres with two G+50 residential towers.
+- Status: Under construction
+- Launch Date: Not found in retrieved source content
+- Possession Date: Q4 2027
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: Not found in retrieved source content
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Not found in retrieved source content
+Pricing
+- Starting Price: AED 800,000 / approximately INR 1.98 Cr*
+- Price Range: AED 800,000 / approximately INR 1.98 Cr*
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 22: Siniya Beach Residences
+URL: https://www.luxuryresidences.in/siniya-beach-residences-at-umm-al-quwain-uae/
+General
+- Project Name: Siniya Beach Residences
+- Builder Name: Not found in retrieved source content
+- City: Umm Al Quwain
+- State: Umm Al Quwain
+- Country: United Arab Emirates
+- Sector: Siniya Island / Beachfront
+- Address: Umm Al Quwain, UAE
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Beach residence project; details need verification from full page and official records.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: 507 Sq. Ft.* starting size
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 507 Sq. Ft.* starting size
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 23: Ellington Soto Grande
+URL: https://www.luxuryresidences.in/ellington-soto-grande-at-ras-al-khaimah/
+General
+- Project Name: Ellington Soto Grande
+- Builder Name: Ellington
+- City: Ras Al Khaimah
+- State: Ras Al Khaimah
+- Country: United Arab Emirates
+- Sector: Not found in retrieved source content
+- Address: Ras Al Khaimah
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Residential project in Ras Al Khaimah; details need verification from full page and official records.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: 421 Sq. Ft. starting size
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: 421 Sq. Ft. starting size
+Pricing
+- Starting Price: Not found in retrieved source content
+- Price Range: Not found in retrieved source content
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 24: BNW Tonino Lamborghini Residences
+URL: https://www.luxuryresidences.in/bnw-tonino-lamborghini-residences-at-dubai/
+General
+- Project Name: BNW Tonino Lamborghini Residences
+- Builder Name: BNW / Tonino Lamborghini
+- City: Ras Al Khaimah
+- State: Ras Al Khaimah
+- Country: United Arab Emirates
+- Sector: Al Marjan Island
+- Address: Al Marjan Island, UAE
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Single-tower 3.6-acre development with 378 residences and 70/30 plan noted in snippet.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Studio to mansion options
+- Sizes: Not found in retrieved source content
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Not found in retrieved source content
+Pricing
+- Starting Price: AED 1.69M
+- Price Range: AED 1.69M
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 25: Omniyat The Alba Residences
+URL: https://www.luxuryresidences.in/omniyat-the-alba-residences-at-palm-jumeirah-dubai/
+General
+- Project Name: Omniyat The Alba Residences
+- Builder Name: Omniyat
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: Palm Jumeirah
+- Address: Palm Jumeirah, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Palm Jumeirah residential project; details should be verified from official developer records.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: Not found in retrieved source content
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Not found in retrieved source content
+Pricing
+- Starting Price: On request / varies by size, view, and configuration
+- Price Range: On request / varies by size, view, and configuration
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content
+
+Project 26: The Pinnacle at Sobha Central
+URL: https://www.luxuryresidences.in/the-pinnacle-at-sobha-central-dubai/
+General
+- Project Name: The Pinnacle at Sobha Central
+- Builder Name: Sobha
+- City: Dubai
+- State: Dubai
+- Country: United Arab Emirates
+- Sector: Sobha Central
+- Address: Sobha Central, Dubai
+- Google Maps URL: Not found in retrieved source content
+- Latitude: Not found in retrieved source content
+- Longitude: Not found in retrieved source content
+- Description: Sobha Central project; details should be verified from full page and official records.
+- Status: Not found in retrieved source content
+- Launch Date: Not found in retrieved source content
+- Possession Date: Not found in retrieved source content
+Legal
+- RERA Number: Not found in retrieved source content
+- RERA Link: Not found in retrieved source content
+- Phase Information: Not found in retrieved source content
+Configuration
+- Unit Types: Not found in retrieved source content
+- Sizes: Not found in retrieved source content
+- Carpet Area: Not found in retrieved source content
+- Built-up Area: Not found in retrieved source content
+- Super Area: Not found in retrieved source content
+Pricing
+- Starting Price: 1.7M AED / approximately 4.02 Cr*
+- Price Range: 1.7M AED / approximately 4.02 Cr*
+- Price Per Sq. Ft.: Not found in retrieved source content
+Amenities
+- Complete Amenity List: Not found in retrieved source content

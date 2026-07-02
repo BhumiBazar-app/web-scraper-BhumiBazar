@@ -1,0 +1,20 @@
+Godrej Alira floor plan download attempt
+Source page: https://www.luxuryresidences.in/godrej-alira-in-sector-39-gurgaon/
+Detected floor plan asset: https://www.luxuryresidences.in/new-assest/images/godrej-alira/godrej-alira-floor-plan.webp
+Generated: 2026-07-01
+
+Result in this execution environment
+- The page exposes a "Download Floor Plan" section and a floor plan image asset.
+- Direct binary download from this environment was blocked before the file could be retrieved.
+- Local attempted output path: SCRAPED_DATA/luxuryresidences_in/downloads/floor_plans/godrej-alira-floor-plan.webp
+- Local download result: failed with HTTPS tunnel access blocked / 403 from the current environment.
+
+Local command to download on an unrestricted network
+curl -L \
+  -H 'Referer: https://www.luxuryresidences.in/godrej-alira-in-sector-39-gurgaon/' \
+  -H 'User-Agent: Mozilla/5.0' \
+  -o SCRAPED_DATA/luxuryresidences_in/downloads/floor_plans/godrej-alira-floor-plan.webp \
+  'https://www.luxuryresidences.in/new-assest/images/godrej-alira/godrej-alira-floor-plan.webp'
+
+Verification command after download
+file SCRAPED_DATA/luxuryresidences_in/downloads/floor_plans/godrej-alira-floor-plan.webp
