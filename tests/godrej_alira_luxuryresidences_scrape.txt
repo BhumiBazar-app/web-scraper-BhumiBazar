@@ -1,0 +1,54 @@
+Scrape summary: Godrej Alira page on LuxuryResidences.in
+Source URL: https://www.luxuryresidences.in/godrej-alira-in-sector-39-gurgaon/
+Generated: 2026-07-01
+
+Local crawler attempt
+- Output path: SCRAPED_DATA/luxuryresidences_in
+- Result in this execution environment: failed before page retrieval because HTTPS access was blocked by the environment/network.
+- Saved crawler error type: FetchAccessBlockedError
+- Saved crawler message: Access blocked by the website or current network. Try again from a browser-enabled residential network or configure an allowed proxy.
+
+Extracted page details
+- Project name: Godrej Alira
+- Developer: Godrej Properties
+- Location: Sector 39, Gurgaon
+- Project type: Premium/luxury residential apartments
+- Unit configurations: 3 BHK and 4 BHK residences
+- Starting price: Rs. 6 Cr onwards, as shown on the page FAQ
+- RERA number: GGM/959/691/2025/62
+- Status: Under construction / new launch
+- Expected possession: March 2032
+- Scale: Approximately 2 acres, one 33-storey tower, and 134 residences
+
+Highlights
+- Low-density development with one tower and limited residences
+- Outdoor party deck and layered landscape courts
+- Palm-lined boulevard
+- Ultra-modern indoor amenities
+
+Amenities
+- Clubhouse
+- Infinity edge pool
+- Pool deck and loungers
+- Fitness studio
+- Multipurpose hall
+- Indoor games
+- Reading corner
+- Meditation lawn
+- High-speed lifts
+- CCTV coverage
+- Serene open spaces
+
+Location advantages listed on the page
+- Rajiv Chowk Flyover: 2 minutes
+- NH-8 Delhi-Jaipur Expressway: 3 minutes
+- Medanta Medicity Hospital: 5 minutes / approximately 850 metres nearby
+- HUDA City Centre / Millennium City Centre Metro: about 5 minutes / 3 km nearby
+- Manav Rachna International School: 8 minutes
+- Cyber City: 15 minutes
+- Cyber Hub: 15 minutes
+- IGI Airport Terminal 3: 20 minutes
+
+Notes
+- The source page states this is not the official developer/property website and belongs to an authorised channel partner for informational purposes.
+- The details above should be verified against official developer/RERA sources before business use.

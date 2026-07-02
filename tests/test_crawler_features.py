@@ -151,3 +151,23 @@ def test_download_fetch_errors_do_not_fail_entire_crawl(tmp_path: Path, monkeypa
     error_logs = list((tmp_path / "builderwebsite_com" / "logs").glob("*_errors.json"))
     assert error_logs
     assert "download blocked" in error_logs[0].read_text(encoding="utf-8")
+
+
+def test_access_block_errors_are_sanitized_for_logs():
+    crawler = RealEstateCrawler()
+
+    error = crawler._crawl_error("https://www.magicbricks.com/new-projects-Noida", OSError("Tunnel connection failed: 403 Forbidden"))
+
+    assert error["error_type"] == "FetchAccessBlockedError"
+    assert error["blocked"] == "true"
+    assert "403" not in error["error"]
+    assert "Forbidden" not in error["error"]
+
+
+def test_request_headers_include_browser_navigation_hints():
+    headers = RealEstateCrawler()._request_headers("https://www.magicbricks.com/new-projects-Noida")
+
+    assert headers["Sec-Fetch-Mode"] == "navigate"
+    assert headers["Sec-Fetch-Dest"] == "document"
+    assert headers["sec-ch-ua-platform"] == '"Windows"'
+

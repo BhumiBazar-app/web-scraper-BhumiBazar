@@ -47,6 +47,44 @@ curl -X POST http://127.0.0.1:8000/crawl \
 
 Tip: run the commands from the repository root so `uvicorn` can import `app.api` and the scraper writes outputs to the expected `SCRAPED_DATA/` directory.
 
+## Sync Your Local Branch With the Git Repo
+
+If your local files do not match the code shown on the Git repo branch or PR, fetch the remote branch and check out the exact branch before running the app:
+
+```bash
+git fetch origin
+git branch -r
+git checkout <branch-name>
+git pull --ff-only origin <branch-name>
+git log -1 --oneline
+```
+
+If you already have local edits, either commit them or stash them before pulling:
+
+```bash
+git status
+git stash push -m "save local changes before syncing"
+git pull --ff-only origin <branch-name>
+```
+
+After syncing, rerun `python -m compileall app tests` and `pytest -q` to confirm the checked-out code is runnable locally.
+
+## Crawler Politeness and Rendering Configuration
+
+The crawler starts with a lightweight HTTP session that preserves cookies and follows redirects. Pages that appear JavaScript-heavy can be rendered with Playwright when `BHUMI_ENABLE_BROWSER_RENDERING=true`. Keep crawling compliant: respect each site's `robots.txt`, Terms of Service, and any available official APIs. The scraper classifies blocked, rate-limited, or CAPTCHA pages for manual review rather than repeatedly retrying them.
+
+Useful environment variables:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `BHUMI_REQUEST_DELAY_SECONDS` | `1.0` | Delay between requests to the same domain. |
+| `BHUMI_FETCH_RETRY_COUNT` | `2` | Retry count for retryable transient failures. |
+| `BHUMI_FETCH_RETRY_BACKOFF_SECONDS` | `0.75` | Exponential backoff base delay. |
+| `BHUMI_MAX_CONCURRENT_REQUESTS_PER_DOMAIN` | `1` | Per-domain concurrency limit; the current crawler runs serially by default. |
+| `BHUMI_ENABLE_BROWSER_RENDERING` | `true` | Enable Playwright fallback for JavaScript-heavy pages. |
+| `BHUMI_BROWSER_TIMEOUT_SECONDS` | `30` | Browser navigation and network-idle timeout. |
+| `BHUMI_RESPECT_ROBOTS_TXT` | `true` | Respect robots.txt before fetching pages. |
+
 ## Output Layout
 
 ```text
