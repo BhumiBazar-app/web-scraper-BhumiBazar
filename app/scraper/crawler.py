@@ -9,6 +9,7 @@ from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
 from app.scraper.classifier import classify_document, looks_like_project
 from app.scraper.html import parse_html
+
 from app.scraper.extractor import extract_builder_name, extract_images, extract_project
 from app.scraper.google_sheets import sync_crawl_to_google_sheets
 from app.scraper.discovery import UrlDiscovery
@@ -92,6 +93,7 @@ class RealEstateCrawler:
             for href in discovery.pagination_candidates(fetched_url):
                 discovery.add_pagination_link(href)
             if looks_like_project(fetched_url, soup):
+
                 project = extract_project(fetched_url, soup, builder_name)
                 projects.append(project)
         if use_filesystem:
@@ -182,6 +184,13 @@ class RealEstateCrawler:
 
     def _normalize_start(self, url: str) -> str:
         return url if url.startswith(("http://", "https://")) else f"https://{url}"
+
+
+    def _site_entrypoints(self, start_url: str) -> list[str]:
+        parsed = urlparse(start_url)
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        return [urljoin(base, "/site-map/")]
+
 
     def _is_internal(self, url: str, domain: str) -> bool:
         return urlparse(url).netloc.replace("www.", "") == domain.replace("www.", "")
