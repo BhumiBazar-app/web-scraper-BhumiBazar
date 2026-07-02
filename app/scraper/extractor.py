@@ -46,7 +46,7 @@ def extract_project(page_url: str, soup: Any, builder_name: str) -> ProjectRecor
     possession = re.search(r"possession\s*(?:date)?\s*[:\-]?\s*([A-Za-z]+\s+\d{4}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4})", text, re.I)
     amenities = sorted(set(re.findall(r"\b(?:clubhouse|gym|fitness center|pool|security|cctv|garden|gardens|park|parking|lift|spa|play area|jogging track|cafe|café|power backup|wi-?fi|fire fighting|yoga lounge|laundry|housekeeping|concierge|business lounge|reception lobby|indoor recreational room)\b", text, re.I)), key=str.lower)
     unit_types = sorted(set(re.findall(r"\b\d\s*BHK\b|\bStudio\b", text, re.I)), key=str.lower)
-    sizes = sorted(set(re.findall(r"\b\d{2,5}\s*(?:sq\.?\s*ft|sqft|sq\.\s*yd|sqyd)\b", text, re.I)), key=str.lower)
+    sizes = _extract_sizes(text)
     city = _first_match(text, [r"Luxury Apartment in ([A-Za-z ]+?)(?:\s+Starting|\s+RERA|$)", r"Tehsil-\s*([A-Za-z ]+)"])
     state = "Rajasthan" if re.search(r"\bRajasthan\b", text, re.I) else None
     address = _first_match(text, [r"Registered Office\s*:\s*(.+?\d{6})", r"Corporate Office\s*:\s*(.+?\d{6})"])
@@ -79,3 +79,26 @@ def _first_match(text: str, patterns: list[str]) -> str | None:
         if match:
             return match.group(1)
     return None
+
+
+def _extract_sizes(text: str) -> list[str]:
+    """Extract project/unit sizes, preserving BHK labels when present."""
+    values: list[str] = []
+    labelled_pattern = re.compile(
+        r"\b(?P<unit>\d\s*BHK|Studio)\b[^\d]{0,40}(?P<size>\d{2,5}(?:[,.]\d{1,2})?\s*(?:sq\.?\s*ft\.?|sqft|sq\.\s*yd\.?|sqyd))",
+        re.I,
+    )
+    for match in labelled_pattern.finditer(text):
+        values.append(f"{_normalize_space(match.group('unit'))} - {_normalize_space(match.group('size'))}")
+
+    generic_pattern = re.compile(r"\b\d{2,5}(?:[,.]\d{1,2})?\s*(?:sq\.?\s*ft\.?|sqft|sq\.\s*yd\.?|sqyd)\b", re.I)
+    for match in generic_pattern.finditer(text):
+        value = _normalize_space(match.group(0))
+        if not any(value.lower() in existing.lower() for existing in values):
+            values.append(value)
+
+    return sorted(dict.fromkeys(values), key=str.lower)
+
+
+def _normalize_space(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip(" -*:;,.‒–—")
