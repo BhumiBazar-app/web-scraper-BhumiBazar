@@ -1,19 +1,18 @@
 from __future__ import annotations
 
 import shutil
-from collections import deque
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import parse_qs, urlencode, urlunparse, urldefrag, urljoin, urlparse
-from urllib.error import URLError, HTTPError
-from urllib.request import Request, urlopen
+from urllib.parse import urlparse
 from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
-from app.scraper.classifier import DOWNLOAD_EXTENSIONS, classify_document, looks_like_project
+from app.scraper.classifier import classify_document, looks_like_project
 from app.scraper.html import parse_html
 from app.scraper.extractor import extract_builder_name, extract_images, extract_project
 from app.scraper.google_sheets import sync_crawl_to_google_sheets
+from app.scraper.discovery import UrlDiscovery
+from app.scraper.fetcher import PageFetcher
 from app.scraper.storage import persist_result, write_json
 from app.scraper.utils import domain_slug, sha256_bytes, slugify, unique_path
 
@@ -22,6 +21,7 @@ class RealEstateCrawler:
     def __init__(self, data_root: Path | None = None, max_pages: int | None = None) -> None:
         self.data_root = data_root or settings.data_root
         self.max_pages = max_pages or settings.max_pages_per_crawl
+        self.fetcher = PageFetcher()
 
     def crawl(self, start_url: str) -> CrawlResult:
         started = datetime.now(timezone.utc)
@@ -38,26 +38,24 @@ class RealEstateCrawler:
             page_dir.mkdir(parents=True, exist_ok=True)
             download_dir.mkdir(parents=True, exist_ok=True)
         pages: list[str] = []
-        errors: list[dict[str, str]] = []
+        errors: list[dict[str, object]] = []
         downloads: list[DownloadedAsset] = []
         projects = []
         all_images = []
         builder_name = domain_slug(start_url).replace("_", " ").title()
-        seen: set[str] = set()
-        pagination_urls: list[str] = []
-        page_sources: dict[str, str] = {start_url: "seed"}
-        queue: deque[str] = deque([start_url])
-        while queue and len(seen) < self.max_pages:
-            url = queue.popleft()
-            page_source = page_sources.get(url, "internal")
-            if url in seen or not self._is_internal(url, domain):
-                continue
-            seen.add(url)
+        discovery = UrlDiscovery(start_url)
+        fetch_logs: list[dict[str, object]] = []
+        while len(discovery.seen) < self.max_pages:
+            url = discovery.next_url()
+            if url is None:
+                break
+            page_source = discovery.page_sources.get(url, "internal")
             try:
                 fetched_url, content_type, body = self._fetch(url)
-            except (HTTPError, URLError, TimeoutError) as exc:
-                errors.append({"url": url, "error": str(exc)})
+            except Exception as exc:
+                errors.append(self._crawl_error(url, exc))
                 continue
+            fetch_logs.append(getattr(self, "_last_fetch_log", {}))
             if "text/html" not in content_type:
                 asset = self._store_download(download_dir if use_filesystem else None, url, url, body, "documents")
                 downloads.append(asset)
@@ -75,39 +73,33 @@ class RealEstateCrawler:
                 page_path.write_text(html, encoding="utf-8")
             images = extract_images(fetched_url, soup)
             all_images.extend(asdict(image) for image in images)
-            for link in soup.find_all("a", href=True):
-                href = urldefrag(urljoin(fetched_url, link.get("href"))).url
-                if not href.startswith(("http://", "https://")):
+            page_links, download_links = discovery.links_from_soup(soup, fetched_url)
+            for href, link in download_links:
+                try:
+                    _, _, doc_body = self._fetch(href)
+                    fetch_logs.append(getattr(self, "_last_fetch_log", {}))
+                except Exception as exc:
+                    errors.append(self._crawl_error(href, exc))
                     continue
-                ext = Path(urlparse(href).path).suffix.lower()
-                if ext in DOWNLOAD_EXTENSIONS:
-                    try:
-                        _, _, doc_body = self._fetch(href)
-                    except (HTTPError, URLError, TimeoutError) as exc:
-                        errors.append({"url": href, "error": str(exc)})
-                        continue
-                    category = classify_document(href, link.get_text(" ", strip=True))
-                    target_dir = (download_dir / category) if use_filesystem else None
-                    downloads.append(self._store_download(target_dir, href, fetched_url, doc_body, category))
-                elif self._is_internal(href, domain) and href not in seen:
-                    if self._is_pagination_link(link, href):
-                        pagination_urls.append(href)
-                        page_sources[href] = "pagination"
-                    else:
-                        page_sources.setdefault(href, "internal")
-                    queue.append(href)
-            for href in self._pagination_candidates(fetched_url):
-                if self._is_internal(href, domain) and href not in seen and href not in queue and len(pagination_urls) < settings.max_pagination_pages:
-                    pagination_urls.append(href)
-                    page_sources[href] = "pagination"
-                    queue.append(href)
+                category = classify_document(href, link.get_text(" ", strip=True))
+                target_dir = (download_dir / category) if use_filesystem else None
+                downloads.append(self._store_download(target_dir, href, fetched_url, doc_body, category))
+            for href, link in page_links:
+                if discovery.is_pagination_link(link, href):
+                    discovery.add_pagination_link(href)
+                else:
+                    discovery.add_page_link(href)
+            for href in discovery.pagination_candidates(fetched_url):
+                discovery.add_pagination_link(href)
             if looks_like_project(fetched_url, soup):
                 project = extract_project(fetched_url, soup, builder_name)
                 projects.append(project)
         if use_filesystem:
             write_json(root / "images.json", all_images)
-            if pagination_urls:
-                write_json(root / "pagination.json", {"discovered": sorted(set(pagination_urls)), "total": len(set(pagination_urls))})
+            if discovery.pagination_urls:
+                write_json(root / "pagination.json", {"discovered": sorted(set(discovery.pagination_urls)), "total": len(set(discovery.pagination_urls))})
+            if fetch_logs:
+                write_json(root / "logs" / f"{crawl_id}_fetches.json", fetch_logs)
             if errors:
                 write_json(root / "logs" / f"{crawl_id}_errors.json", errors)
         finished = datetime.now(timezone.utc)
@@ -123,40 +115,41 @@ class RealEstateCrawler:
             self._snapshot_latest(root, crawl_id)
         return result
 
+    def _crawl_error(self, url: str, exc: Exception) -> dict[str, object]:
+        if self.fetcher._is_access_blocked_error(exc):
+            return {
+                "url": url,
+                "error": "Access blocked by the website or current network. Try again from a browser-enabled residential network or configure an allowed proxy.",
+                "error_type": "FetchAccessBlockedError",
+                "blocked": "true",
+            }
+        return {"url": url, "error": str(exc), "error_type": type(exc).__name__}
+
     def _fetch(self, url: str) -> tuple[str, str, bytes]:
-        request = Request(url, headers=self._request_headers(url))
-        with urlopen(request, timeout=settings.request_timeout_seconds) as response:
-            return response.geturl(), response.headers.get("content-type", ""), response.read()
+        result = self.fetcher.fetch(url)
+        self._last_fetch_log = {
+            "url": result.url,
+            "final_url": result.final_url,
+            "status_code": result.status_code,
+            "redirect_chain": result.redirect_chain,
+            "response_time_seconds": round(result.response_time_seconds, 3),
+            "retry_attempts": result.retry_attempts,
+            "rendered": result.rendered,
+            "rendering_error": result.rendering_error,
+            "failure_reason": result.failure_reason,
+        }
+        if result.failure_reason in {"captcha", "access_blocked", "rate_limited", "rendering_error"}:
+            self._last_fetch_log["manual_review"] = True
+        return result.final_url, result.content_type, result.body
 
     def _request_headers(self, url: str) -> dict[str, str]:
-        return {
-            "User-Agent": settings.user_agent,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": settings.accept_language,
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-            "Referer": settings.request_referer,
-            "Upgrade-Insecure-Requests": "1",
-            "DNT": "1",
-        }
+        return self.fetcher.request_headers(url)
 
     def _pagination_candidates(self, url: str) -> list[str]:
-        parsed = urlparse(url)
-        query = parse_qs(parsed.query)
-        candidates: list[str] = []
-        for key in ("page", "paged", "p"):
-            if key not in query:
-                continue
-            current = int(query[key][0]) if query[key][0].isdigit() else 1
-            if current < settings.max_pagination_pages:
-                next_query = {k: v[:] for k, v in query.items()}
-                next_query[key] = [str(current + 1)]
-                candidates.append(urlunparse(parsed._replace(query=urlencode(next_query, doseq=True))))
-        return candidates
+        return UrlDiscovery(url).pagination_candidates(url)
 
     def _is_pagination_link(self, link: object, href: str) -> bool:
-        label = " ".join(str(value) for value in (link.get("rel"), link.get("class"), link.get_text(" ", strip=True), href)).lower()
-        return any(token in label for token in ("next", "pagination", "page/", "paged=", "page="))
+        return UrlDiscovery(href).is_pagination_link(link, href)
 
     def _store_download(self, directory: Path | None, url: str, source_page: str, content: bytes, category: str) -> DownloadedAsset:
         content_hash = sha256_bytes(content)

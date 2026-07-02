@@ -20,3 +20,18 @@ def test_extracts_nirvana_style_project_details():
     assert project.starting_price == "₹30 Lakhs"
     assert project.rera_number == "RAJ/P/2017/313, RAJ/P/2017/314, RAJ/P/2017/315"
     assert "Gym" in project.amenities
+
+
+def test_extracts_godrej_alira_unit_sizes():
+    soup = parse_html("""
+    <html><h1>Godrej Alira</h1>
+    <p>Size : 3 BHK - 2500 Sq. Ft.*</p>
+    <p>Size : 4 BHK - 3200 Sq. Ft.*</p>
+    <p>Starting Price Rs. 6 Cr onwards</p>
+    </html>
+    """)
+
+    project = extract_project("https://www.luxuryresidences.in/godrej-alira-in-sector-39-gurgaon/", soup, "Godrej Properties")
+
+    assert project.unit_types == ["3 BHK", "4 BHK"]
+    assert project.sizes == ["3 BHK - 2500 Sq. Ft", "4 BHK - 3200 Sq. Ft"]
