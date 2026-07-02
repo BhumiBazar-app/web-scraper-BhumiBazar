@@ -12,7 +12,7 @@ from app.scraper.storage import write_json
 PROJECT_HEADERS = [
     "Website ID", "Crawl ID", "Project Name", "Builder", "City", "State", "Country",
     "Status", "RERA Number", "Starting Price", "Price Range", "Possession Date",
-    "Address", "Amenities", "Source Pages",
+    "Unit Types", "Sizes", "Address", "Amenities", "Source Pages",
 ]
 DOWNLOAD_HEADERS = ["Website ID", "Crawl ID", "Category", "URL", "Source Page", "Local Path", "Content Hash"]
 PAGE_HEADERS = ["Website ID", "Crawl ID", "Page URL"]
@@ -82,7 +82,8 @@ def _project_row(result: CrawlResult, project: ProjectRecord) -> list[Any]:
     return [
         result.website_id, result.crawl_id, data["project_name"], data["builder_name"], data["city"],
         data["state"], data["country"], data["status"], data["rera_number"], data["starting_price"],
-        data["price_range"], data["possession_date"], data["address"], ", ".join(data["amenities"]),
+        data["price_range"], data["possession_date"], ", ".join(data["unit_types"]),
+        ", ".join(data["sizes"]), data["address"], ", ".join(data["amenities"]),
         ", ".join(data["source_pages"]),
     ]
 

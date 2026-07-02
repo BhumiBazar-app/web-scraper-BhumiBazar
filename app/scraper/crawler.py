@@ -8,18 +8,6 @@ from urllib.parse import urlparse
 from app.config import settings
 from app.models import CrawlResult, DownloadedAsset
 from app.scraper.classifier import classify_document, looks_like_project
-
-from urllib.parse import parse_qs, urlencode, urlunparse, urldefrag, urljoin, urlparse
-from urllib.request import Request, urlopen
-from app.config import settings
-from app.models import CrawlResult, DownloadedAsset
-from app.scraper.browser import PlaywrightUnavailableError, fetch_with_playwright
-from app.scraper.classifier import DOWNLOAD_EXTENSIONS, classify_document, looks_like_project
-from app.scraper.html import parse_html
-from app.scraper.listing_extractor import extract_listing_projects
-from app.scraper.sitemap_extractor import extract_sitemap_projects
-
-from app.scraper.classifier import DOWNLOAD_EXTENSIONS, classify_document, looks_like_project
 from app.scraper.html import parse_html
 
 from app.scraper.extractor import extract_builder_name, extract_images, extract_project
@@ -63,22 +51,6 @@ class RealEstateCrawler:
             if url is None:
                 break
             page_source = discovery.page_sources.get(url, "internal")
-
-        seen: set[str] = set()
-        pagination_urls: list[str] = []
-        page_sources: dict[str, str] = {start_url: "seed"}
-        queue: deque[str] = deque([start_url])
-
-        for entrypoint in self._site_entrypoints(start_url):
-            page_sources.setdefault(entrypoint, "sitemap")
-            queue.append(entrypoint)
-
-        while queue and len(seen) < self.max_pages:
-            url = queue.popleft()
-            page_source = page_sources.get(url, "internal")
-            if url in seen or not self._is_internal(url, domain):
-                continue
-            seen.add(url)
             try:
                 fetched_url, content_type, body = self._fetch(url)
             except Exception as exc:
@@ -120,38 +92,6 @@ class RealEstateCrawler:
                     discovery.add_page_link(href)
             for href in discovery.pagination_candidates(fetched_url):
                 discovery.add_pagination_link(href)
-
-                ext = Path(urlparse(href).path).suffix.lower()
-                if ext in DOWNLOAD_EXTENSIONS:
-                    try:
-                        _, _, doc_body = self._fetch(href)
-                    except Exception as exc:
-                        errors.append(self._crawl_error(href, exc))
-                        continue
-                    category = classify_document(href, link.get_text(" ", strip=True))
-                    target_dir = (download_dir / category) if use_filesystem else None
-                    downloads.append(self._store_download(target_dir, href, fetched_url, doc_body, category))
-                elif self._is_internal(href, domain) and href not in seen:
-                    if self._is_pagination_link(link, href):
-                        pagination_urls.append(href)
-                        page_sources[href] = "pagination"
-                    else:
-                        page_sources.setdefault(href, "internal")
-                    queue.append(href)
-            for href in self._pagination_candidates(fetched_url):
-                if self._is_internal(href, domain) and href not in seen and href not in queue and len(pagination_urls) < settings.max_pagination_pages:
-                    pagination_urls.append(href)
-                    page_sources[href] = "pagination"
-                    queue.append(href)
-
-            sitemap_projects = extract_sitemap_projects(fetched_url, soup, builder_name)
-            listing_projects = extract_listing_projects(fetched_url, soup, builder_name)
-            if sitemap_projects:
-                projects.extend(sitemap_projects)
-            elif listing_projects:
-                projects.extend(listing_projects)
-            elif looks_like_project(fetched_url, soup):
-
             if looks_like_project(fetched_url, soup):
 
                 project = extract_project(fetched_url, soup, builder_name)
@@ -206,51 +146,6 @@ class RealEstateCrawler:
 
     def _request_headers(self, url: str) -> dict[str, str]:
         return self.fetcher.request_headers(url)
-
-    def _crawl_error(self, url: str, exc: Exception) -> dict[str, str]:
-        return {"url": url, "error": str(exc), "error_type": type(exc).__name__}
-
-    def _fetch(self, url: str) -> tuple[str, str, bytes]:
-
-        headers = self._request_headers(url)
-        if settings.use_playwright:
-            try:
-                result = fetch_with_playwright(
-                    url,
-                    headers,
-                    settings.request_timeout_seconds,
-                    settings.playwright_headless,
-                    settings.playwright_proxy,
-                    settings.playwright_slow_mo_ms,
-                )
-                return result.final_url, result.content_type, result.body
-            except PlaywrightUnavailableError:
-                pass
-        request = Request(url, headers=headers)
-
-        request = Request(url, headers=self._request_headers(url))
-
-        with urlopen(request, timeout=settings.request_timeout_seconds) as response:
-            return response.geturl(), response.headers.get("content-type", ""), response.read()
-
-    def _request_headers(self, url: str) -> dict[str, str]:
-        return {
-            "User-Agent": settings.user_agent,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": settings.accept_language,
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-            "Referer": settings.request_referer,
-            "Upgrade-Insecure-Requests": "1",
-            "DNT": "1",
-
-            "Connection": "keep-alive",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "none",
-            "Sec-Fetch-User": "?1",
-
-        }
 
     def _pagination_candidates(self, url: str) -> list[str]:
         return UrlDiscovery(url).pagination_candidates(url)

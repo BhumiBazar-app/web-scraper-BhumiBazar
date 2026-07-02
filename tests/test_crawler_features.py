@@ -170,4 +170,3 @@ def test_request_headers_include_browser_navigation_hints():
     assert headers["Sec-Fetch-Mode"] == "navigate"
     assert headers["Sec-Fetch-Dest"] == "document"
     assert headers["sec-ch-ua-platform"] == '"Windows"'
-

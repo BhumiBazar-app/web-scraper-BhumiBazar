@@ -50,13 +50,6 @@ class Settings(BaseSettings):
     lazy_load_scroll_pixels: int = _env_int("BHUMI_LAZY_LOAD_SCROLL_PIXELS", 1200)
     lazy_load_scroll_delay_ms: int = _env_int("BHUMI_LAZY_LOAD_SCROLL_DELAY_MS", 750)
     respect_robots_txt: bool = _env_bool("BHUMI_RESPECT_ROBOTS_TXT", True)
-
-    max_pagination_pages: int = int(os.getenv("BHUMI_MAX_PAGINATION_PAGES", "25")
-    use_playwright: bool = os.getenv("BHUMI_USE_PLAYWRIGHT", "true").lower() in {"1", "true", "yes", "on"}
-    playwright_headless: bool = os.getenv("BHUMI_PLAYWRIGHT_HEADLESS", "true").lower() in {"1", "true", "yes", "on"}
-    playwright_proxy: str | None = os.getenv("BHUMI_PLAYWRIGHT_PROXY")
-    playwright_slow_mo_ms: int = int(os.getenv("BHUMI_PLAYWRIGHT_SLOW_MO_MS", "0"))
-
     storage_backend: str = os.getenv("BHUMI_STORAGE_BACKEND", "filesystem")
     google_sheets_spreadsheet_id: str | None = os.getenv("BHUMI_GOOGLE_SHEETS_SPREADSHEET_ID")
     google_service_account_json: str | None = os.getenv("BHUMI_GOOGLE_SERVICE_ACCOUNT_JSON")
