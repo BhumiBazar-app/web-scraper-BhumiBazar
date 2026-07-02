@@ -14,6 +14,7 @@ Extracted page details
 - Location: Sector 39, Gurgaon
 - Project type: Premium/luxury residential apartments
 - Unit configurations: 3 BHK and 4 BHK residences
+- Sizes from the LuxuryResidences.in page: 3 BHK - 2500 Sq. Ft.*; 4 BHK - 3200 Sq. Ft.*
 - Starting price: Rs. 6 Cr onwards, as shown on the page FAQ
 - RERA number: GGM/959/691/2025/62
 - Status: Under construction / new launch
@@ -51,4 +52,5 @@ Location advantages listed on the page
 
 Notes
 - The source page states this is not the official developer/property website and belongs to an authorised channel partner for informational purposes.
+- Size values with an asterisk are shown as approximate/marketing values on the source page and should be verified against official floor plans/RERA records.
 - The details above should be verified against official developer/RERA sources before business use.

@@ -23,9 +23,9 @@ def write_project_xlsx(path: Path, project: ProjectRecord) -> None:
 
 
 def write_master_xlsx(path: Path, projects: list[ProjectRecord]) -> None:
-    rows = [["Project Name", "Builder", "Status", "RERA", "Starting Price", "Possession", "Source Pages"]]
+    rows = [["Project Name", "Builder", "Status", "RERA", "Starting Price", "Possession", "Unit Types", "Sizes", "Source Pages"]]
     for project in projects:
-        rows.append([project.project_name, project.builder_name, project.status, project.rera_number, project.starting_price, project.possession_date, ", ".join(project.source_pages)])
+        rows.append([project.project_name, project.builder_name, project.status, project.rera_number, project.starting_price, project.possession_date, ", ".join(project.unit_types), ", ".join(project.sizes), ", ".join(project.source_pages)])
     _write_xlsx(path, "Projects", rows)
 
 
