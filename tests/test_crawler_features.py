@@ -110,3 +110,63 @@ def test_placeholder_google_sheet_id_is_treated_as_not_configured(tmp_path: Path
     status = sync_crawl_to_google_sheets(result, write_pending=False)
 
     assert status["status"] == "not_configured"
+
+
+def test_seed_fetch_errors_return_failed_crawl_instead_of_raising(tmp_path: Path, monkeypatch):
+    crawler = RealEstateCrawler(data_root=tmp_path, max_pages=1)
+
+    def fail_fetch(url: str):
+        raise OSError("network unreachable")
+
+    monkeypatch.setattr(crawler, "_fetch", fail_fetch)
+
+    result = crawler.crawl("https://builderwebsite.com")
+
+    assert result.status == "failed"
+    assert result.pages == []
+    error_logs = list((tmp_path / "builderwebsite_com" / "logs").glob("*_errors.json"))
+    assert error_logs
+    assert "OSError" in error_logs[0].read_text(encoding="utf-8")
+
+
+def test_download_fetch_errors_do_not_fail_entire_crawl(tmp_path: Path, monkeypatch):
+    crawler = RealEstateCrawler(data_root=tmp_path, max_pages=1)
+
+    def fake_fetch(url: str):
+        if url.endswith("brochure.pdf"):
+            raise OSError("download blocked")
+        return (
+            url,
+            "text/html; charset=utf-8",
+            b'<html><head><title>Builder</title></head><body><a href="/brochure.pdf">Brochure</a></body></html>',
+        )
+
+    monkeypatch.setattr(crawler, "_fetch", fake_fetch)
+
+    result = crawler.crawl("https://builderwebsite.com")
+
+    assert result.status == "completed"
+    assert result.pages == ["https://builderwebsite.com"]
+    assert result.downloads == []
+    error_logs = list((tmp_path / "builderwebsite_com" / "logs").glob("*_errors.json"))
+    assert error_logs
+    assert "download blocked" in error_logs[0].read_text(encoding="utf-8")
+
+
+def test_access_block_errors_are_sanitized_for_logs():
+    crawler = RealEstateCrawler()
+
+    error = crawler._crawl_error("https://www.magicbricks.com/new-projects-Noida", OSError("Tunnel connection failed: 403 Forbidden"))
+
+    assert error["error_type"] == "FetchAccessBlockedError"
+    assert error["blocked"] == "true"
+    assert "403" not in error["error"]
+    assert "Forbidden" not in error["error"]
+
+
+def test_request_headers_include_browser_navigation_hints():
+    headers = RealEstateCrawler()._request_headers("https://www.magicbricks.com/new-projects-Noida")
+
+    assert headers["Sec-Fetch-Mode"] == "navigate"
+    assert headers["Sec-Fetch-Dest"] == "document"
+    assert headers["sec-ch-ua-platform"] == '"Windows"'
