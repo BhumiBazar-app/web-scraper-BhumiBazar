@@ -202,7 +202,7 @@ class RealEstateCrawler:
     def _snapshot_latest(self, root: Path, crawl_id: str) -> None:
         version_root = root / "versions" / crawl_id
         version_root.mkdir(parents=True, exist_ok=True)
-        for name in ("website.json", "latest.json", "crawl_history.json", "sitemap.xml", "master.xlsx", "images.json", "pagination.json", "google_sheets_status.json", "google_sheets_pending.json"):
+        for name in ("website.json", "latest.json", "crawl_history.json", "sitemap.xml", "master.xlsx", "images.json", "all_scraped_data.txt", "pagination.json", "google_sheets_status.json", "google_sheets_pending.json"):
             source = root / name
             if source.exists():
                 shutil.copy2(source, version_root / name)
