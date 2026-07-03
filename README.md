@@ -18,7 +18,7 @@ A production-grade, dynamic web crawler for Indian real estate builder websites.
 
 | Layer | Technology |
 | --- | --- |
-| Language | Python 3.12 |
+| Language | Python 3.12 only |
 | Backend | FastAPI |
 | Browser Automation | Playwright-ready dependency |
 | HTML Parser | BeautifulSoup + lxml |
@@ -31,9 +31,10 @@ A production-grade, dynamic web crawler for Indian real estate builder websites.
 ## Quick Start
 
 ```bash
-python -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -e '.[dev]'
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e '.[dev]'
 uvicorn app.api:app --reload
 ```
 
@@ -125,17 +126,24 @@ Use this method when you want to run the scraper directly from your terminal ins
 Run these commands from the repository root after cloning or pulling the latest branch:
 
 ```bash
-python -m venv .venv
+python3.12 --version
+python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -e '.[dev]'
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e '.[dev]'
 ```
 
 On Windows PowerShell, activate the virtual environment with:
 
 ```powershell
+py -3.12 --version
+py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -e '.[dev]'
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e '.[dev]'
 ```
+
+This project is pinned to Python 3.12 because several scraper dependencies ship native wheels that may try to compile with Rust/Cargo on newer Python versions. If you see an error like `maturin failed`, `Failed to build a native library through cargo`, or `Cargo build finished with "exit status: 101"`, recreate the virtual environment with Python 3.12 and reinstall using the commands above.
 
 If you want browser rendering for JavaScript-heavy websites, install Chromium for Playwright once:
 
@@ -246,6 +254,44 @@ SCRAPED_DATA/
 
 If the command exits with `Scrape status: blocked` or `Scrape status: failed`, check `SCRAPED_DATA/<domain>/logs/` for detailed fetch or error logs. Some websites block datacenter IPs, headless browsers, or automated requests; in those cases, try a smaller `--max-pages` value, enable Playwright, or configure an approved proxy as described below.
 
+### 6. Fix `maturin failed` / Cargo build errors during install
+
+If dependency installation fails with output similar to this:
+
+```text
+warning: build failed, waiting for other jobs to finish...
+💥 maturin failed
+Caused by: Failed to build a native library through cargo
+Caused by: Cargo build finished with "exit status: 101"
+```
+
+The most common cause is that the virtual environment is using a Python version newer than this project supports, so pip cannot find a prebuilt wheel for a native dependency and tries to compile it locally. Use Python 3.12 and recreate the virtual environment:
+
+```bash
+rm -rf .venv
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e '.[dev]'
+```
+
+On Windows PowerShell:
+
+```powershell
+Remove-Item -Recurse -Force .venv
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -e '.[dev]'
+```
+
+Confirm the virtual environment is using Python 3.12 before running the scraper:
+
+```bash
+python --version
+python scrape_to_txt.py https://builderwebsite.com --max-pages 5
+```
+
 ## Python API
 
 ```python
@@ -288,7 +334,7 @@ Use `BHUMI_STORAGE_BACKEND=both` when you want both Google Sheets sync and full 
 The crawler uses Playwright by default (`BHUMI_USE_PLAYWRIGHT=true`) so JavaScript-heavy sites can render before extraction. Install the browser runtime before production crawls:
 
 ```bash
-pip install -e '.[dev]'
+python -m pip install -e '.[dev]'
 playwright install chromium
 ```
 
