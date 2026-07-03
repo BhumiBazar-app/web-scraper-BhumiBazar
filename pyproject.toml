@@ -24,6 +24,9 @@ dependencies = [
   "google-auth>=2.30.0",
 ]
 
+[project.scripts]
+bhumi-scrape = "scrape_to_txt:main"
+
 [project.optional-dependencies]
 dev = ["pytest>=8.2.0"]
 
