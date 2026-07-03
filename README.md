@@ -4,14 +4,14 @@ A production-grade, dynamic web crawler for Indian real estate builder websites.
 
 ## Version 1 Capabilities
 
-- Dynamic URL input through FastAPI (`POST /crawl`) or the Python crawler API.
+- Dynamic URL input through FastAPI (`POST /crawl`), the Python crawler API, or the terminal script (`scrape_to_txt.py`).
 - Internal-only website crawling with sitemap generation.
 - Dynamic project detection from URL, metadata, navigation, and page-content signals.
 - Download support for PDFs, spreadsheets, documents, presentations, ZIP, and RAR files.
 - HTML archiving for every crawled page.
 - Image manifest creation without downloading image binaries.
 - Project JSON, Excel, description, metadata, and folder creation.
-- Website-level `website.json`, `latest.json`, `crawl_history.json`, `sitemap.xml`, and `master.xlsx`.
+- Website-level `website.json`, `latest.json`, `crawl_history.json`, `sitemap.xml`, `master.xlsx`, and `all_scraped_data.txt`.
 - Crawl version snapshots in `versions/crawl_###/` for historical comparison.
 
 ## Technology Stack
@@ -95,6 +95,7 @@ SCRAPED_DATA/
     ├── crawl_history.json
     ├── sitemap.xml
     ├── master.xlsx
+    ├── all_scraped_data.txt
     ├── images.json
     ├── pages/
     ├── downloads/
@@ -103,6 +104,7 @@ SCRAPED_DATA/
         ├── project.json
         ├── project.xlsx
         ├── description.txt
+        ├── scraped_data.txt
         ├── images.json
         ├── metadata.json
         ├── raw_html/
@@ -112,6 +114,137 @@ SCRAPED_DATA/
         ├── layouts/
         └── documents/
 ```
+
+
+## Command-Line TXT Scraper
+
+Use this method when you want to run the scraper directly from your terminal instead of starting the FastAPI server. The script asks for, or receives, one website URL and then writes the usual `SCRAPED_DATA/` folder plus TXT files that are easy to open locally.
+
+### 1. Prepare your local environment
+
+Run these commands from the repository root after cloning or pulling the latest branch:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e '.[dev]'
+```
+
+On Windows PowerShell, activate the virtual environment with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+pip install -e '.[dev]'
+```
+
+If you want browser rendering for JavaScript-heavy websites, install Chromium for Playwright once:
+
+```bash
+playwright install chromium
+```
+
+### 2. Run the script with a URL
+
+Pass the builder or project website URL directly on the command line:
+
+```bash
+python scrape_to_txt.py https://builderwebsite.com
+```
+
+Example with a custom output folder and a smaller crawl limit for quick local testing:
+
+```bash
+python scrape_to_txt.py https://builderwebsite.com --data-root SCRAPED_DATA --max-pages 25
+```
+
+You can also run the script without a URL. It will prompt you to enter one:
+
+```bash
+python scrape_to_txt.py
+# Enter website URL to scrape: https://builderwebsite.com
+```
+
+After installing the package with `pip install -e '.[dev]'`, you can use the console command instead of the Python file path:
+
+```bash
+bhumi-scrape https://builderwebsite.com --max-pages 25
+```
+
+### 3. Read the generated TXT output
+
+When the command finishes, it prints a summary similar to this:
+
+```text
+Scrape status: completed
+Pages scraped: 12
+Projects found: 3
+Downloads found: 5
+TXT output: SCRAPED_DATA/builderwebsite_com/all_scraped_data.txt
+```
+
+Open the printed TXT file to inspect all scraped data in one place:
+
+```bash
+cat SCRAPED_DATA/builderwebsite_com/all_scraped_data.txt
+```
+
+Each detected project also receives its own TXT file:
+
+```text
+SCRAPED_DATA/builderwebsite_com/projects/project_name/scraped_data.txt
+```
+
+### 4. Useful local testing commands
+
+Limit the crawl while checking that the script works:
+
+```bash
+python scrape_to_txt.py https://builderwebsite.com --max-pages 5
+```
+
+Use a throwaway output directory so test runs do not mix with existing data:
+
+```bash
+python scrape_to_txt.py https://builderwebsite.com --data-root LOCAL_TEST_SCRAPED_DATA --max-pages 5
+```
+
+Disable Playwright if your local machine does not have browser dependencies installed and you only want to test basic HTTP fetching:
+
+```bash
+BHUMI_USE_PLAYWRIGHT=false python scrape_to_txt.py https://builderwebsite.com --max-pages 5
+```
+
+On Windows PowerShell, set that environment variable for the current command like this:
+
+```powershell
+$env:BHUMI_USE_PLAYWRIGHT = "false"
+python scrape_to_txt.py https://builderwebsite.com --max-pages 5
+Remove-Item Env:\BHUMI_USE_PLAYWRIGHT
+```
+
+### 5. What files should you expect?
+
+For `https://builderwebsite.com`, the output folder will usually look like this:
+
+```text
+SCRAPED_DATA/
+└── builderwebsite_com/
+    ├── all_scraped_data.txt      # Full crawl summary in TXT format
+    ├── latest.json               # Machine-readable summary
+    ├── website.json              # Website metadata
+    ├── sitemap.xml               # URLs discovered during crawling
+    ├── master.xlsx               # Project spreadsheet
+    ├── pages/                    # Archived HTML pages
+    ├── downloads/                # Downloaded brochures/documents
+    └── projects/
+        └── project_name/
+            ├── scraped_data.txt  # Project-specific TXT data
+            ├── description.txt
+            ├── project.json
+            └── project.xlsx
+```
+
+If the command exits with `Scrape status: blocked` or `Scrape status: failed`, check `SCRAPED_DATA/<domain>/logs/` for detailed fetch or error logs. Some websites block datacenter IPs, headless browsers, or automated requests; in those cases, try a smaller `--max-pages` value, enable Playwright, or configure an approved proxy as described below.
 
 ## Python API
 
